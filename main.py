@@ -1,21 +1,15 @@
+from math import sqrt
 with open("greet.txt") as greet:
     print(greet.read())
 
-
-from math import sqrt
-
-isExit = 0
-choose = 0
-firstNum = 0
-secondNum = 0
+isExit = choose = firstNum = secondNum = 0
 
 while(not isExit):
-
     choose = 0
-    print("Choose your operation:\n1)\t+\n2)\t-\n3)\t/\n4)\t*\n5)\t%\n6)\tsqrt(x)\t")
+    print("Choose your operation:\n1)\t+\n2)\t-\n3)\t/\n4)\t*\n5)\t%\n6)\tsqrt(x)\t\n7)\t% of")
     choose = int(input("\t\t\t"))
 
-    if(choose < 1 or choose > 6):
+    if(choose < 1 or choose > 7):
         print("Error! Try again.\n")
         continue
 
@@ -26,7 +20,6 @@ while(not isExit):
         print("Enter second number: ")
         secondNum = int(input("\t\t\t"))
 
-    
     if(choose == 1):
         print(f"Your result is {firstNum} + {secondNum} = {firstNum + secondNum}")
     
@@ -45,13 +38,13 @@ while(not isExit):
     elif(choose == 6):
         print(f"Your result is sqrt({firstNum}) =", sqrt(firstNum))
 
-    print("Want to continue? (y/n)")
+    elif(choose == 7):
+        print(f"Your result {secondNum}% of {firstNum} =", firstNum*(secondNum/100))
+
+    print("\nWant to continue? (y/n)")
     choose = str(input())
-
-
 
     if(choose == "y" or choose == "yes"):
         isExit = 0
     else:
         isExit = 1
-    
