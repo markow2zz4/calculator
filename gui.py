@@ -1,38 +1,46 @@
-import PySimpleGUI as sg
+import tkinter as tk
+from tkinter import*
+from tkinter import ttk
 
-#sg.theme_previewer()
 
-btn_size = 4
-ttk = "Fredoka.ttf"
-sg.theme("DarkGrey13")
-sg.set_options(font=ttk, border_width=3)
 
-layout = [
-        [sg.Text('Welcome to XSum!', 26, font="Arial")],
-        [sg.InputText(size=40)],
-        [sg.Button("%", size=btn_size), sg.Button("CE", size=btn_size),
-         sg.Button("C", size=btn_size), sg.Button("<", size=btn_size)],
+font = "Fredoka"
 
-        [sg.Button("1/x", size=btn_size), sg.Button("x2", size=btn_size),
-         sg.Button("√", size=btn_size),sg.Button("÷", size=btn_size) ],
+window = tk.Tk()
 
-        [sg.Button("7",  size=btn_size), sg.Button("8",  size=btn_size),
-         sg.Button("9",  size=btn_size),sg.Button("x",  size=btn_size) ],
+window.geometry("440x640")
+window.title("XSum | Let's calculate it!")
+window.config(background="#2E2E2E")
 
-        [sg.Button("5",  size=btn_size), sg.Button("7",  size=btn_size),
-         sg.Button("6",  size=btn_size),sg.Button("-",  size=btn_size) ],
+window.resizable(False, False)
 
-        [sg.Button("1",  size=btn_size), sg.Button("2",  size=btn_size),
-         sg.Button("3",  size=btn_size),sg.Button("+",  size=btn_size) ],
+tk.Text()
 
-        [sg.Button("+/-",  size=btn_size), sg.Button("0",  size=btn_size),
-         sg.Button(",",  size=btn_size),sg.Button("=", size=btn_size) ],
+ttk.Label(text="X", background="#2E2E2E",foreground="#6F0CBD",font=("Fredoka Bold", 40)).place(x=280, y=40)
+ttk.Label(text="Sum", background="#2E2E2E",foreground="White",font=("Fredoka Bold", 40)).place(x=320, y=40)
+ttk.Entry(width=22,justify="right",font=("Fredoka Bold", 24)).place(x=23, y=110)
 
-]
-window = sg.Window('XSum', layout)
-while True:                             # The Event Loop
-    event, values = window.read()
-    print("You entered ", values[0]) #debug
-    if event in (None, 'Exit', 'Cancel'):
-        break
-window.close()
+
+bx = 60
+by = 180
+
+btn = PhotoImage(file = "btn.png")
+eq_btn = PhotoImage(file="eq.png")
+
+
+
+
+bx = 55
+by = 180
+
+btns = list()
+
+for i in range(6):
+    for j in range(4):
+        Button(window, width=70, height=50, borderwidth=0,background="#2E2E2E",image=btn).place(x=bx, y=by)
+        bx += 100
+    bx = 55
+    by += 70
+    
+equals_btn = Button(window, width=70, height=50, background="#2E2E2E",borderwidth=0,image=eq_btn).place(x=355, y=530)
+window.mainloop()
