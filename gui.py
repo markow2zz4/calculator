@@ -1,10 +1,6 @@
 import tkinter as tk
-from tkinter import*
+from tkinter import *
 from tkinter import ttk
-
-
-
-font = "Fredoka"
 
 window = tk.Tk()
 
@@ -18,29 +14,188 @@ tk.Text()
 
 ttk.Label(text="X", background="#2E2E2E",foreground="#6F0CBD",font=("Fredoka Bold", 40)).place(x=280, y=40)
 ttk.Label(text="Sum", background="#2E2E2E",foreground="White",font=("Fredoka Bold", 40)).place(x=320, y=40)
-ttk.Entry(width=22,justify="right",font=("Fredoka Bold", 24)).place(x=23, y=110)
+entry_field = Entry(width=22,justify="right",font=("Fredoka Bold", 24), state="normal")
+entry_field.place(x=23, y=110)
 
 
 bx = 60
 by = 180
 
-btn = PhotoImage(file = "btn.png")
-eq_btn = PhotoImage(file="eq.png")
+#tasks
 
 
-
+btn = [PhotoImage(file="btns/percent.png"),
+            PhotoImage(file = "btns/ce.png"),
+            PhotoImage(file = "btns/c.png"),
+            PhotoImage(file = "btns/--.png"),
+            PhotoImage(file = "btns/1divx.png"),
+            PhotoImage(file = "btns/x2.png"),
+            PhotoImage(file = "btns/rad.png"),
+            PhotoImage(file = "btns/div.png"),
+            PhotoImage(file = "btns/7.png"),
+            PhotoImage(file = "btns/8.png"),
+            PhotoImage(file = "btns/9.png"),
+            PhotoImage(file = "btns/x.png"),
+            PhotoImage(file = "btns/4.png"),
+            PhotoImage(file = "btns/5.png"),
+            PhotoImage(file = "btns/6.png"),
+            PhotoImage(file = "btns/-.png"),
+            PhotoImage(file = "btns/1.png"),
+            PhotoImage(file = "btns/2.png"),
+            PhotoImage(file = "btns/3.png"),
+            PhotoImage(file = "btns/+.png"),
+            PhotoImage(file = "btns/+-.png"),
+            PhotoImage(file = "btns/0.png"),
+            PhotoImage(file = "btns/,.png"),
+            PhotoImage(file = "btns/=.png")]
 
 bx = 55
 by = 180
 
+nums = ["%","CE", "C", "<", "1/x", "x2", "√","÷","7",
+        '8', '9', 'x', '4', '5', '6', '-', '1', '2', 
+        '3', "+", "+/-", "0", ",", "="]
+counter = 0
+
 btns = list()
+
+#remove
+def entrySet(event):
+    global dic
+    global entry_field
+
+    if(Button(dic["btn_3"]).focus()):
+        entry_field.delete(0, END)
+
+
+dic = {}
 
 for i in range(6):
     for j in range(4):
-        Button(window, width=70, height=50, borderwidth=0,background="#2E2E2E",image=btn).place(x=bx, y=by)
+
+        dic["btn_" + str(counter)] = Button(window, width=70, height=50, borderwidth=0,
+                                            background="#2E2E2E",image=btn[counter])
+        dic[f"btn_{counter}"].place(x=bx, y=by)
+        counter+=1
         bx += 100
     bx = 55
     by += 70
-    
-equals_btn = Button(window, width=70, height=50, background="#2E2E2E",borderwidth=0,image=eq_btn).place(x=355, y=530)
+
+def clearLast():
+    """ for CE func (not completed) """
+    chis = entry_field.get()
+    number = 0
+    counter = len(chis)
+
+    try:
+        while type(int(chis[counter-1])) == int:
+            entry_field.delete(len(entry_field.get())-1)
+            counter -= 1
+        print(chis)
+        
+    except:
+        pass
+
+def eq():
+    try:
+        chis = entry_field.get()
+        if(chis.find("//") == True or chis.find("**") == True or chis.find("%%") == True):
+            raise Exception("Error")
+        else:
+            entry_field.delete(0, END)
+            example = eval(chis)
+
+            if example == float(f'{int(example)}.0'):
+                example = int(example)
+            else:
+                example = float(f'{example:.6}')
+                entry_field.delete(0, END)
+            entry_field.insert(0, example)
+                
+    except Exception as e:
+        
+        if(chis == "Error"):
+            entry_field.delete(0, END)
+        
+        else:
+            entry_field.delete(0, END)
+            entry_field.insert(0, "Error")
+
+def percent():
+    entry_field.insert(END, "%")
+    chis = entry_field.get()
+    if("%%" in chis):
+        entry_field.delete(0, END)
+        entry_field.insert(0, "Error")
+
+def divx():
+    chis = entry_field.get()
+    if(chis.isdigit() != True):
+        entry_field.delete(0, END)
+        entry_field.insert(0, "Error")
+    else:
+        example = eval("1/" + str(chis))
+        
+        entry_field.delete(0, END)
+        entry_field.insert(0, f'{example:.6}')
+
+def x2():
+    chis = entry_field.get()
+    if(chis.isdigit() != True or len(str(int(chis) * int(chis))) >= 4000):
+        entry_field.delete(0, END)
+        entry_field.insert(0, "Error")
+    else:
+        
+        entry_field.delete(0, END)
+        entry_field.insert(0, int(chis) * int(chis))
+
+def rad():
+    chis = entry_field.get()
+    if(chis.isdigit() != True):
+        entry_field.delete(0, END)
+        entry_field.insert(0, "Error")
+    else:
+        example = int(chis) ** 0.5
+        if example == float(f'{int(example)}.0'):
+            example = int(example)
+        else:
+            example = float(f'{example:.6}')
+        entry_field.delete(0, END)
+        entry_field.insert(0, example)
+#-----------------------------BTNS-----------------------------#
+dic["btn_0"].config(command=percent)
+dic["btn_1"].config(command=clearLast)
+dic["btn_2"].config(command=lambda: entry_field.delete(0, END))
+dic["btn_3"].config(command=lambda: entry_field.delete(len(entry_field.get())-1))
+
+dic["btn_4"].config(command=divx)
+dic["btn_5"].config(command=x2)
+dic["btn_6"].config(command=rad)
+dic["btn_7"].config(command=lambda: entry_field.insert(END, "/"))
+
+dic["btn_8"].config(command=lambda: entry_field.insert(END, "7"))
+dic["btn_9"].config(command=lambda: entry_field.insert(END, "8"))
+dic["btn_10"].config(command=lambda: entry_field.insert(END, "9"))
+
+dic["btn_12"].config(command=lambda: entry_field.insert(END, "4"))
+dic["btn_13"].config(command=lambda: entry_field.insert(END, "5"))
+dic["btn_14"].config(command=lambda: entry_field.insert(END, "6"))
+
+dic["btn_16"].config(command=lambda: entry_field.insert(END, "1"))
+dic["btn_17"].config(command=lambda: entry_field.insert(END, "2"))
+dic["btn_18"].config(command=lambda: entry_field.insert(END, "3"))
+dic["btn_21"].config(command=lambda: entry_field.insert(END, "0"))
+
+
+
+#-----------------------------BTNS-end-----------------------------#
+
+
+equals = Button(window, width=70, height=50, borderwidth=0,background="#2E2E2E",image=btn[len(btn) - 1], command=eq)
+equals.place(x=355, y=by-70)
+
+
+
+
+
 window.mainloop()
