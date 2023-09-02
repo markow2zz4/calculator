@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+import sqlite3
 
 window = tk.Tk()
 
@@ -22,7 +23,8 @@ bx = 60
 by = 180
 
 #tasks
-
+# 1 - make a greet login page
+# 2 - make a second window with history (interface)
 
 btn = [PhotoImage(file="btns/percent.png"),
             PhotoImage(file = "btns/ce.png"),
@@ -52,22 +54,9 @@ btn = [PhotoImage(file="btns/percent.png"),
 bx = 55
 by = 180
 
-nums = ["%","CE", "C", "<", "1/x", "x2", "√","÷","7",
-        '8', '9', 'x', '4', '5', '6', '-', '1', '2', 
-        '3', "+", "+/-", "0", ",", "="]
 counter = 0
 
 btns = list()
-
-#remove
-def entrySet(event):
-    global dic
-    global entry_field
-
-    if(Button(dic["btn_3"]).focus()):
-        entry_field.delete(0, END)
-
-
 dic = {}
 
 for i in range(6):
@@ -145,7 +134,7 @@ def divx():
 
 def x2():
     chis = entry_field.get()
-    if(chis.isdigit() != True or len(str(int(chis) * int(chis))) >= 4000):
+    if(chis.isdigit() != True or len(str(int(chis) * int(chis))) >= 1000):
         entry_field.delete(0, END)
         entry_field.insert(0, "Error")
     else:
@@ -189,13 +178,14 @@ def plus():
         entry_field.insert(END, "+")
 
 def comma():
+    
     chis = entry_field.get()
     if(chis[len(chis) -1] not in "*+-%/,"):
         entry_field.insert(END, ",")
     else:
         entry_field.insert(END, "")
 
-def change_sign2():
+
     chis = entry_field.get()
     number = ""
 
@@ -231,7 +221,7 @@ def change_sign2():
         entry_field.insert(0, chis)
         
 
-def change_sign():
+
     chis = entry_field.get()
     counter = len(chis)
     number = 0
@@ -280,6 +270,9 @@ def change_sign():
     
     except:
         pass
+
+def history():
+    pass
 #-----------------------------BTNS-----------------------------#
 dic["btn_0"].config(command=percent)
 dic["btn_1"].config(command=clearLast)
@@ -306,7 +299,7 @@ dic["btn_17"].config(command=lambda: entry_field.insert(END, "2"))
 dic["btn_18"].config(command=lambda: entry_field.insert(END, "3"))
 
 dic["btn_19"].config(command=plus)
-dic["btn_20"].config(command=change_sign2)
+dic["btn_20"].config(command=history)
 dic["btn_21"].config(command=lambda: entry_field.insert(END, "0"))
 dic["btn_22"].config(command=comma)
 #-----------------------------BTNS-end-----------------------------#
