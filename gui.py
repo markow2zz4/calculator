@@ -11,13 +11,10 @@ window.config(background="#2E2E2E")
 
 window.resizable(False, False)
 
-tk.Text()
-
 ttk.Label(text="X", background="#2E2E2E",foreground="#6F0CBD",font=("Fredoka Bold", 40)).place(x=280, y=40)
 ttk.Label(text="Sum", background="#2E2E2E",foreground="White",font=("Fredoka Bold", 40)).place(x=320, y=40)
 entry_field = Entry(width=22,justify="right",font=("Fredoka Bold", 24), state="normal")
 entry_field.place(x=23, y=110)
-
 
 bx = 60
 by = 180
